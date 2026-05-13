@@ -32,13 +32,13 @@ def inicio():
 def get_comentarios(bar_id: int):
     comentarios = list(
         db["comentarios"].find(
-            {"bar_id": bar_id},
+            {"bar_id_oracle": bar_id},
             {"_id": 0}))  # TODO: completar
     return comentarios
 
 @app.post('/bares/{bar_id}/comentarios')
 def post_comentario(bar_id: int, datos: dict):
-    datos['bar_id'] = bar_id
+    datos['bar_id_oracle'] = bar_id
     datos['fecha']  = datetime.now().isoformat()
     # TODO: completar
     db["comentarios"].insert_one(datos)
@@ -51,7 +51,7 @@ def post_comentario(bar_id: int, datos: dict):
 def get_eventos(bar_id: int):
     eventos = list(
         db["eventos"].find(
-            {"bar_id": bar_id},
+            {"bar_id_oracle": bar_id},
             {"_id": 0})
     )  # TODO: completar
     return eventos
@@ -59,8 +59,8 @@ def get_eventos(bar_id: int):
 # TODO: implementar POST /bares/{bar_id}/eventos  
 @app.post('/bares/{bar_id}/eventos')
 def post_evento(bar_id: int, datos: dict):
-    datos['bar_id'] = bar_id
-    datos['fecha_creacion']  = datetime.now().isoformat() 
+    datos['bar_id_oracle'] = bar_id
+    datos['fecha_evento']  = datetime.now().isoformat() 
     
     db["eventos"].insert_one(datos)
     
