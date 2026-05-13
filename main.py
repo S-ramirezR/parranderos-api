@@ -31,7 +31,7 @@ def inicio():
 @app.get('/bares/{bar_id}/comentarios')
 def get_comentarios(bar_id: int):
     comentarios = list(
-        db["comentarios_bares"].find(
+        db["comentarios"].find(
             {"bar_id": bar_id},
             {"_id": 0}))  # TODO: completar
     return comentarios
@@ -41,7 +41,7 @@ def post_comentario(bar_id: int, datos: dict):
     datos['bar_id'] = bar_id
     datos['fecha']  = datetime.now().isoformat()
     # TODO: completar
-    db["comentarios_bares"].insert_one(datos)
+    db["comentarios"].insert_one(datos)
     
     return {'mensaje': 'Comentario guardado'}
 
